@@ -1,4 +1,5 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
+import os
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
@@ -6,6 +7,8 @@ class Ui_MainWindow(object):
         MainWindow.resize(1400, 850) 
 
         self.centralwidget = QtWidgets.QWidget(MainWindow)
+
+        self.script_dir = os.path.dirname(os.path.abspath(__file__))
         self.centralwidget.setObjectName("centralwidget")
 
         main_vertical_layout = QtWidgets.QVBoxLayout(self.centralwidget)
@@ -182,32 +185,37 @@ class Ui_MainWindow(object):
         button_fixed_size = QtCore.QSize(160, 160)
         icon_draw_size = QtCore.QSize(150, 150)
 
-        buttons_data = {
-            "btn_up_0": "icons/motor1_arriba.png",    
-            "btn_down_1": "icons/motor1_abajo.png",   
-            "btn_left_2": "icons/basejoint_izq.png",  
-            "btn_right_3": "icons/basejoint_der.png", 
-            "btn_center_4": "icons/motor5_izq.png",   
-            "btn_up_5": "icons/motor3_arriba.png",    
-            "btn_down_6": "icons/motor3_abajo.png",   
-            "btn_left_7": "icons/motor4_arriba.png",  
-            "btn_right_9": "icons/motor4_abajo.png",  
-            "btn_center_10": "icons/motor5_der.png"   
-        }
+        relative_path_to_icons_folder = "icons" 
 
-        for name, icon_path in buttons_data.items():
+        base_icon_path = os.path.join(self.script_dir, relative_path_to_icons_folder)
+
+        buttons_filenames = {
+            "btn_up_0": "motor1_arriba.png",    
+            "btn_down_1": "motor1_abajo.png",   
+            "btn_left_2": "basejoint_izq.png",  
+            "btn_right_3": "basejoint_der.png", 
+            "btn_center_4": "motor5_izq.png",   
+            "btn_up_5": "motor3_arriba.png",    
+            "btn_down_6": "motor3_abajo.png",   
+            "btn_left_7": "motor4_arriba.png",  
+            "btn_right_9": "motor4_abajo.png",  
+            "btn_center_10": "motor5_der.png"   
+        }
+        
+        for name, filename in buttons_filenames.items():
             button = QtWidgets.QPushButton(gb) 
             button.setText("") 
+            
+            icon_full_path = os.path.join(base_icon_path, filename)
+
             try:
-                icon = QtGui.QIcon(icon_path)
+                icon = QtGui.QIcon(icon_full_path)
                 if icon.isNull():
-                    print(f"Advertencia: No se pudo cargar el icono '{icon_path}' para el botón '{name}'.")
                     button.setText("!") 
                     button.setStyleSheet("QPushButton { color: red; font-size: 48pt; border: 2px dashed red; }")
                 else:
                     button.setIcon(icon)
             except Exception as e:
-                print(f"Error al cargar icono '{icon_path}' para '{name}': {e}")
                 button.setText("X")
                 button.setStyleSheet("QPushButton { color: red; font-size: 48pt; border: 2px solid red; }")
 
@@ -232,7 +240,7 @@ class Ui_MainWindow(object):
             setattr(self, name, button) 
 
         font_motor_group_label = QtGui.QFont()
-        font_motor_group_label.setPointSize(12) # Increased label font size
+        font_motor_group_label.setPointSize(12) 
         font_motor_group_label.setWeight(QtGui.QFont.Bold)
         label_min_width = 170 
         button_row_spacing = 6 

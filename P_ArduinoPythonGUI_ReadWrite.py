@@ -2,7 +2,7 @@ import sys
 import time
 from PyQt5 import QtWidgets, QtGui, QtCore
 import serial as tarjeta
-from main_gui import Ui_MainWindow 
+from main_gui import Ui_MainWindow
 
 class MyApp(QtWidgets.QMainWindow, Ui_MainWindow):
     def _get_main_stylesheet(self):
@@ -20,15 +20,15 @@ class MyApp(QtWidgets.QMainWindow, Ui_MainWindow):
             padding: 2px;
         }
         QLabel#motorStatusLed {
-            font-size: 20pt; 
-            color: #333940; 
+            font-size: 20pt;
+            color: #333940;
             qproperty-alignment: 'AlignCenter';
             min-width: 25px;
             font-weight: bold;
         }
         QLineEdit {
-            background-color: #2C313A; 
-            border: 1px solid #4A505A; 
+            background-color: #2C313A;
+            border: 1px solid #4A505A;
             border-radius: 5px;
             padding: 7px 10px; 
             color: #E0E8F0; 
@@ -36,13 +36,13 @@ class MyApp(QtWidgets.QMainWindow, Ui_MainWindow):
         }
         QLineEdit:focus {
             border: 1px solid #00AEEF; 
-            background-color: #303540; 
+            background-color: #303540;
         }
         QPushButton { 
-            background-color: #007B8C; 
+            background-color: #007B8C;
             color: #FFFFFF;
             border: 1px solid #005F6B;
-            border-radius: 5px;
+            border-radius: 5px; 
             padding: 7px 15px; 
             font-size: 10pt;
             font-weight: bold;
@@ -50,10 +50,10 @@ class MyApp(QtWidgets.QMainWindow, Ui_MainWindow):
         }
         QPushButton:hover {
             background-color: #009CB0; 
-            border-color: #007B8C;
+            border-color: #007B8C; 
         }
         QPushButton:pressed {
-            background-color: #005F6B; 
+            background-color: #005F6B;
         }
         QPushButton:disabled {
             background-color: #4A505A;
@@ -61,12 +61,12 @@ class MyApp(QtWidgets.QMainWindow, Ui_MainWindow):
             border-color: #3A3F4A;
         }
         QCheckBox {
-            spacing: 8px; 
+            spacing: 8px;
             color: #C0C8D0;
         }
         QCheckBox::indicator {
-            width: 18px; 
-            height: 18px;
+            width: 18px;
+            height: 18px; 
             border: 1px solid #4A505A;
             border-radius: 4px;
             background-color: #2C313A;
@@ -80,22 +80,22 @@ class MyApp(QtWidgets.QMainWindow, Ui_MainWindow):
         }
         QGroupBox {
             font-weight: bold;
-            font-size: 12pt; 
+            font-size: 12pt;
             border: 1px solid #4A505A;
-            border-radius: 8px; 
-            margin-top: 12px; 
-            background-color: #23272E; 
-            padding-top: 10px; 
+            border-radius: 8px;
+            margin-top: 12px;
+            background-color: #23272E;
+            padding-top: 10px;
         }
         QGroupBox::title {
             subcontrol-origin: margin;
-            subcontrol-position: top left; 
-            padding: 4px 12px; 
-            left: 12px; 
-            color: #00AEEF; 
-            background-color: #2C313A; 
+            subcontrol-position: top left;
+            padding: 4px 12px;
+            left: 12px;
+            color: #00AEEF;
+            background-color: #2C313A;
             border: 1px solid #4A505A;
-            border-bottom: 1px solid #2C313A; 
+            border-bottom: 1px solid #2C313A;
             border-top-left-radius: 6px;
             border-top-right-radius: 6px;
         }
@@ -103,19 +103,19 @@ class MyApp(QtWidgets.QMainWindow, Ui_MainWindow):
             background-color: #171A1E; 
             border: 1px solid #3A3F4A;
             border-radius: 5px;
-            color: #A0A8B0; 
+            color: #A0A8B0;
             font-family: "Consolas", "Lucida Console", monospace;
             padding: 8px;
             font-size: 9pt;
         }
         QScrollBar:vertical {
             border: none;
-            background: #23272E; 
-            width: 12px; 
+            background: #23272E;
+            width: 12px;
             margin: 0px 0px 0px 0px;
         }
         QScrollBar::handle:vertical {
-            background: #4A505A; 
+            background: #4A505A;
             min-height: 25px;
             border-radius: 6px;
         }
@@ -178,14 +178,14 @@ class MyApp(QtWidgets.QMainWindow, Ui_MainWindow):
         """
 
     def _update_status_label_color(self, status_text):
-        color = "#FFC107" 
+        color = "#FFC107"
 
         if "CONECTADO" in status_text.upper() and "SIMULACIÓN" not in status_text.upper():
             color = "#00E676"
         elif "SIMULACIÓN ACTIVA (CONECTADO)" in status_text.upper():
             color = "#69F0AE"
         elif "DESCONECTADO" in status_text.upper() or "ERROR" in status_text.upper() or "NOT CONNECTED" in status_text.upper():
-            color = "#FF5252"
+            color = "#FF5252" 
         elif "CONECTANDO..." in status_text.upper(): 
             color = "#29B6F6" 
         elif "CONNECTING" in status_text.upper() or "RECONECTAR" in status_text.upper():
@@ -205,7 +205,7 @@ class MyApp(QtWidgets.QMainWindow, Ui_MainWindow):
         self.modo_simulacion = False
         self.arduino = None
         self.btn_accion.clicked.connect(self.accion)
-        self.segundoPlano = QtCore.QTimer(self) 
+        self.segundoPlano = QtCore.QTimer(self)
         self.segundoPlano.timeout.connect(self.lecturas)
         self.sim_timer_counter = 0
 
@@ -224,9 +224,9 @@ class MyApp(QtWidgets.QMainWindow, Ui_MainWindow):
         self.btn_right_9.clicked.connect(lambda: self.arduino_write_command("30", self.der4, self.status_en4))
         self.btn_center_10.clicked.connect(lambda: self.arduino_write_command("40", self.der5, self.status_en5))
 
-        self.btn_Avanzar.clicked.connect(lambda: self.arduino_write_command("138")) 
-        self.btn_Stop.clicked.connect(lambda: self.arduino_write_command("255"))    
-        self.btn_Retroceder.clicked.connect(lambda: self.arduino_write_command("61")) 
+        self.btn_Avanzar.clicked.connect(lambda: self.arduino_write_command("138"))
+        self.btn_Stop.clicked.connect(lambda: self.arduino_write_command("255"))
+        self.btn_Retroceder.clicked.connect(lambda: self.arduino_write_command("61"))
         self.chk_simulacion.stateChanged.connect(self.toggle_simulation_mode)
         self.btn_limpiar_datos.clicked.connect(self.limpiar_datos_display)
 
@@ -253,10 +253,10 @@ class MyApp(QtWidgets.QMainWindow, Ui_MainWindow):
 
     def arduino_write_command(self, command, direction_checkbox=None, status_led_label=None):
         if self.modo_simulacion:
-            log_message = f"[SIM CMD] Enviado: {command}"
+            log_message = f"[SIM CMD] Enviado: {command}" 
             print(log_message) 
-            self.text_edit_datos.append(log_message) 
-            self.text_edit_datos.ensureCursorVisible() 
+            self.text_edit_datos.append(log_message)
+            self.text_edit_datos.ensureCursorVisible()
 
             if direction_checkbox:
                 direction_checkbox.setChecked(True)
@@ -302,15 +302,15 @@ class MyApp(QtWidgets.QMainWindow, Ui_MainWindow):
             QtCore.Qt.Key_H: (self.btn_left_7, "31", self.izq4, self.status_en4),
             QtCore.Qt.Key_K: (self.btn_right_9, "30", self.der4, self.status_en4),
             QtCore.Qt.Key_Y: (self.btn_center_10, "40", self.der5, self.status_en5),
-            QtCore.Qt.Key_1: (self.btn_Retroceder, "61"), 
-            QtCore.Qt.Key_2: (self.btn_Stop, "255"),    
-            QtCore.Qt.Key_3: (self.btn_Avanzar, "138"), 
+            QtCore.Qt.Key_1: (self.btn_Retroceder, "61"),
+            QtCore.Qt.Key_2: (self.btn_Stop, "255"),
+            QtCore.Qt.Key_3: (self.btn_Avanzar, "138"),
         }
 
         action_tuple = key_map.get(event.key())
         if action_tuple:
-            if hasattr(action_tuple[0], 'click'): 
-                 action_tuple[0].animateClick(100) 
+            if hasattr(action_tuple[0], 'click'):
+                 action_tuple[0].animateClick(100)
 
             if len(action_tuple) == 4:
                 _, comando, direction_cb, status_led = action_tuple
@@ -325,7 +325,7 @@ class MyApp(QtWidgets.QMainWindow, Ui_MainWindow):
             self.lbl_sim_status.setText("Simulación: ACTIVA")
             self.lbl_sim_status.setStyleSheet("color: #69F0AE; font-style: italic; font-weight: bold;")
             print("Modo Simulación ACTIVADO")
-            if self.arduino and self.arduino.isOpen(): 
+            if self.arduino and self.arduino.isOpen():
                 self.segundoPlano.stop()
                 self.arduino.close()
                 self.arduino = None
@@ -335,7 +335,7 @@ class MyApp(QtWidgets.QMainWindow, Ui_MainWindow):
             self.lbl_sim_status.setText("Simulación: INACTIVA")
             self.lbl_sim_status.setStyleSheet("color: #FFAB40; font-style: italic;")
             print("Modo Simulación DESACTIVADO")
-            if self.segundoPlano.isActive(): 
+            if self.segundoPlano.isActive():
                 self.segundoPlano.stop()
             self.btn_accion.setText("CONECTAR")
             self._update_status_label_color("DESCONECTADO")
@@ -350,7 +350,7 @@ class MyApp(QtWidgets.QMainWindow, Ui_MainWindow):
                 self.btn_control_led.setText("PRENDER LED")
                 print("[SIM] LED Apagado")
         else:
-            if self.arduino and self.arduino.isOpen():
+            if self.arduino and self.arduino.isOpen(): 
                 try:
                     if "PRENDER" in texto.upper():
                         self.btn_control_led.setText("APAGAR LED")
@@ -376,7 +376,7 @@ class MyApp(QtWidgets.QMainWindow, Ui_MainWindow):
             if self.sim_timer_counter % 5 == 0:
                 sim_data = f"Event: {['Alpha','Bravo','Charlie','Delta','Echo'][self.sim_timer_counter % 5]}"
             
-            self.text_edit_datos.append(sim_data) 
+            self.text_edit_datos.append(sim_data)
         elif self.arduino and self.arduino.isOpen():
             try:
                 if self.arduino.inWaiting() > 0:
@@ -398,11 +398,11 @@ class MyApp(QtWidgets.QMainWindow, Ui_MainWindow):
 
     def accion(self):
         texto_btn = self.btn_accion.text()
-        com_port = self.txt_com.text().strip() 
+        com_port = self.txt_com.text().strip()
 
         if self.modo_simulacion:
             if "CONECTAR (SIM)" in texto_btn:
-                if not self.segundoPlano.isActive(): 
+                if not self.segundoPlano.isActive():
                     self.segundoPlano.start(500) 
                 self.btn_accion.setText("DESCONECTAR (SIM)")
                 self._update_status_label_color("SIMULACIÓN ACTIVA (CONECTADO)")
@@ -415,7 +415,7 @@ class MyApp(QtWidgets.QMainWindow, Ui_MainWindow):
                 print("[SIM] Desconectado")
             return
 
-        original_button_text = "CONECTAR" 
+        original_button_text = "CONECTAR"
         if "RECONECTAR" in texto_btn:
             original_button_text = "RECONECTAR"
 
@@ -433,10 +433,9 @@ class MyApp(QtWidgets.QMainWindow, Ui_MainWindow):
             self.btn_accion.setEnabled(False)
             self.btn_accion.setText("CONECTANDO...")
             self._update_status_label_color("CONECTANDO...") 
-            QtWidgets.QApplication.processEvents() 
+            QtWidgets.QApplication.processEvents()
 
             try:
-                print(f"Attempting to connect to {com_port}...")
                 self.arduino = tarjeta.Serial(com_port, baudrate=9600, timeout=1)
                 
                 start_time = time.time()
@@ -448,10 +447,10 @@ class MyApp(QtWidgets.QMainWindow, Ui_MainWindow):
                     time.sleep(0.05)
 
                 if not port_opened_within_timeout:
-                    if self.arduino: self.arduino.close() 
+                    if self.arduino: self.arduino.close()
                     raise tarjeta.SerialException(f"Timeout: El puerto {com_port} no se abrió en 2.5s.")
 
-                time.sleep(1.5) 
+                time.sleep(1.5)
 
                 if self.arduino.isOpen():
                     if not self.segundoPlano.isActive():
@@ -470,14 +469,14 @@ class MyApp(QtWidgets.QMainWindow, Ui_MainWindow):
                 error_msg = str(e).splitlines()[0] if str(e) else "Error desconocido al conectar."
                 self._update_status_label_color(f"Error: {error_msg}")
                 print(f"Serial connection error: {e}")
-                QtWidgets.QMessageBox.critical(self, "Error Serial", f"No se pudo conectar a {com_port}.\n{e}")
-                if self.arduino: 
+                QtWidgets.QMessageBox.critical(self, "Error Serial", f"No se pudo conectar a {com_port}.\n{error_msg}")
+                if self.arduino:
                     if self.arduino.isOpen(): self.arduino.close()
                 self.arduino = None
-                self.btn_accion.setText("RECONECTAR") 
+                self.btn_accion.setText("RECONECTAR")
             except Exception as e:
                 self._update_status_label_color(f"Error Inesperado: {type(e).__name__}")
-                print(f"An unexpected error occurred during connection: {e}")
+                print(f"An unexpected error occurred during connection: {type(e).__name__}: {e}")
                 QtWidgets.QMessageBox.critical(self, "Error Inesperado", f"Ocurrió un error:\n{e}")
                 if self.arduino and self.arduino.isOpen(): self.arduino.close()
                 self.arduino = None
