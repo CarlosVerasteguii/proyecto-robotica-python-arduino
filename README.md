@@ -30,17 +30,6 @@ Este proyecto implementa una interfaz gráfica de usuario (GUI) desarrollada en 
     *   Circuitería para motores, LEDs, y cualquier otro actuador/sensor que estés controlando.
     *   Fuente de alimentación adecuada para los componentes.
 
-## Estructura del Proyecto
-ROBOTICA/
-├── Proyecto/
-│ ├── icons/ # Directorio para los iconos de la GUI
-│ │ ├── motor1_arriba.png
-│ │ ├── motor1_abajo.png
-│ │ ├── basejoint_izq.png
-│ │ ├── ... (otros iconos)
-│ └── main_gui.py # Definición de la estructura de la UI 
-├── P_ArduinoPythonGUI_ReadWrite.py # Lógica principal de la aplicación, manejo de eventos y comunicación Arduino
-├── README.md # Este archivo
 
 
 ## Atajos de Teclado
